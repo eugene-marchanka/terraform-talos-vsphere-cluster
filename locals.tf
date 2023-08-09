@@ -1,8 +1,28 @@
 locals {
-  machine_secrets               = defaults(var.machine_secrets, module.secrets.machine_secrets)
-  talos_admin_pki               = defaults(var.talos_admin_pki, module.secrets.talos_admin_pki)
-  cluster_secrets               = defaults(var.cluster_secrets, module.secrets.cluster_secrets)
-  control_plane_cluster_secrets = defaults(var.control_plane_cluster_secrets, module.secrets.control_plane_cluster_secrets)
+  # machine_secrets               = defaults(var.machine_secrets, module.secrets.machine_secrets)
+  # talos_admin_pki               = defaults(var.talos_admin_pki, module.secrets.talos_admin_pki)
+  # cluster_secrets               = defaults(var.cluster_secrets, module.secrets.cluster_secrets)
+  # control_plane_cluster_secrets = defaults(var.control_plane_cluster_secrets, module.secrets.control_plane_cluster_secrets)
+  machine_secrets = (
+    var.machine_secrets != null ?
+    var.machine_secrets :
+    module.secrets.machine_secrets
+  )
+  talos_admin_pki = (
+    var.talos_admin_pki != null ?
+    var.talos_admin_pki :
+    module.secrets.talos_admin_pki
+  )
+  cluster_secrets = (
+    var.cluster_secrets != null ?
+    var.cluster_secrets :
+    module.secrets.cluster_secrets
+  )
+  control_plane_cluster_secrets = (
+    var.control_plane_cluster_secrets != null ?
+    var.control_plane_cluster_secrets :
+    module.secrets.control_plane_cluster_secrets
+  )
 
   cluster_control_plane = defaults(var.cluster_control_plane, {
     endpoint = "https://${replace(var.control_plane_machine_network_interfaces[0][0].addresses[0], "/[/].*/", "")}:6443"
