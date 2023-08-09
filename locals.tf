@@ -3,6 +3,10 @@ locals {
   # talos_admin_pki               = defaults(var.talos_admin_pki, module.secrets.talos_admin_pki)
   # cluster_secrets               = defaults(var.cluster_secrets, module.secrets.cluster_secrets)
   # control_plane_cluster_secrets = defaults(var.control_plane_cluster_secrets, module.secrets.control_plane_cluster_secrets)
+  # cluster_control_plane = defaults(var.cluster_control_plane, {
+  #   endpoint = "https://${replace(var.control_plane_machine_network_interfaces[0][0].addresses[0], "/[/].*/", "")}:6443"
+  # })
+
   machine_secrets = (
     var.machine_secrets != null ?
     var.machine_secrets :
@@ -24,9 +28,13 @@ locals {
     module.secrets.control_plane_cluster_secrets
   )
 
-  cluster_control_plane = defaults(var.cluster_control_plane, {
-    endpoint = "https://${replace(var.control_plane_machine_network_interfaces[0][0].addresses[0], "/[/].*/", "")}:6443"
-  })
+  cluster_control_plane = (
+    var.cluster_control_plane != null ?
+    var.cluster_control_plane :
+    {
+      endpoint = "https://${replace(var.control_plane_machine_network_interfaces[0][0].addresses[0], "/[/].*/", "")}:6443"
+    }
+  )
 
   kubeconfig = {
     apiVersion = "v1"
