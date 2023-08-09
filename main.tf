@@ -1,7 +1,7 @@
 terraform {
-  experiments = [
-    module_variable_optional_attrs
-  ]
+  # experiments = [
+  #   module_variable_optional_attrs
+  # ]
 
   required_version = ">= 1.1.9, < 2.0.0"
   required_providers {
@@ -24,8 +24,8 @@ module "secrets" {
 }
 
 module "control_plane_vm" {
-  source  = "ilpozzd/vsphere-vm/talos"
-  version = "1.1.3"
+  source = "git@github.com:eugene-marchanka/terraform-talos-vsphere-vm.git?ref=4ebad7b3efefe2d089177582d628d9e3c126603c"
+  # version = "1.1.3"
 
   datacenter     = var.datacenter
   datastores     = var.datastores
@@ -70,8 +70,9 @@ module "control_plane_vm" {
 }
 
 module "worker_vm" {
-  source  = "ilpozzd/vsphere-vm/talos"
-  version = "1.1.3"
+  source = "git@github.com:eugene-marchanka/terraform-talos-vsphere-vm.git?ref=4ebad7b3efefe2d089177582d628d9e3c126603c"
+  # source  = "ilpozzd/vsphere-vm/talos"
+  # version = "1.1.3"
 
   datacenter     = var.datacenter
   datastores     = reverse(var.datastores)
