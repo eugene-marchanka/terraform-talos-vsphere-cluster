@@ -24,7 +24,7 @@ module "secrets" {
 }
 
 module "control_plane_vm" {
-  source = "git@github.com:eugene-marchanka/terraform-talos-vsphere-vm.git?ref=c197c5084fad05a4f07d772b1c970ddf24be62f1"
+  source = "git@github.com:eugene-marchanka/terraform-talos-vsphere-vm.git?ref=05b8b94e4289d2f8846d45d99b27dffaccdb6482"
   # version = "1.1.3"
 
   datacenter     = var.datacenter
@@ -69,43 +69,43 @@ module "control_plane_vm" {
   cluster_extra_manifest_headers = var.cluster_extra_manifest_headers
 }
 
-module "worker_vm" {
-  source = "git@github.com:eugene-marchanka/terraform-talos-vsphere-vm.git?ref=c197c5084fad05a4f07d772b1c970ddf24be62f1"
-  # source  = "ilpozzd/vsphere-vm/talos"
-  # version = "1.1.3"
+# module "worker_vm" {
+#   source = "git@github.com:eugene-marchanka/terraform-talos-vsphere-vm.git?ref=c197c5084fad05a4f07d772b1c970ddf24be62f1"
+#   # source  = "ilpozzd/vsphere-vm/talos"
+#   # version = "1.1.3"
 
-  datacenter     = var.datacenter
-  datastores     = reverse(var.datastores)
-  hosts          = reverse(var.hosts)
-  resource_pool  = var.resource_pool
-  folder         = var.folder
-  remote_ovf_url = var.remote_ovf_url
+#   datacenter     = var.datacenter
+#   datastores     = reverse(var.datastores)
+#   hosts          = reverse(var.hosts)
+#   resource_pool  = var.resource_pool
+#   folder         = var.folder
+#   remote_ovf_url = var.remote_ovf_url
 
-  vm_count = var.worker_count
-  num_cpus = var.worker_num_cpus
-  memory   = var.worker_memory
+#   vm_count = var.worker_count
+#   num_cpus = var.worker_num_cpus
+#   memory   = var.worker_memory
 
-  disks              = var.worker_disks
-  network_interfaces = var.worker_network_interfaces
+#   disks              = var.worker_disks
+#   network_interfaces = var.worker_network_interfaces
 
-  talos_base_configuration = var.talos_base_configuration
+#   talos_base_configuration = var.talos_base_configuration
 
-  machine_base_configuration  = var.machine_base_configuration
-  machine_extra_configuration = var.worker_machine_extra_configuration
-  machine_secrets             = local.machine_secrets
+#   machine_base_configuration  = var.machine_base_configuration
+#   machine_extra_configuration = var.worker_machine_extra_configuration
+#   machine_secrets             = local.machine_secrets
 
-  machine_type               = "worker"
-  machine_cert_sans          = var.worker_machine_cert_sans
-  machine_network            = var.machine_network
-  machine_network_hostnames  = var.worker_machine_network_hostnames
-  machine_network_interfaces = var.worker_machine_network_interfaces
+#   machine_type               = "worker"
+#   machine_cert_sans          = var.worker_machine_cert_sans
+#   machine_network            = var.machine_network
+#   machine_network_hostnames  = var.worker_machine_network_hostnames
+#   machine_network_interfaces = var.worker_machine_network_interfaces
 
-  cluster_name          = var.cluster_name
-  cluster_control_plane = local.cluster_control_plane
-  cluster_discovery     = var.cluster_discovery
+#   cluster_name          = var.cluster_name
+#   cluster_control_plane = local.cluster_control_plane
+#   cluster_discovery     = var.cluster_discovery
 
-  cluster_secrets = local.cluster_secrets
-}
+#   cluster_secrets = local.cluster_secrets
+# }
 
 resource "local_file" "kubeconfig" {
   count    = var.kubeconfig_path != "" ? 1 : 0
