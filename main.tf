@@ -24,7 +24,7 @@ module "secrets" {
 }
 
 module "control_plane_vm" {
-  source = "git@github.com:eugene-marchanka/terraform-talos-vsphere-vm.git?ref=470297810f343e132ef4e65813aa61a8c803cc8c"
+  source = "git@github.com:eugene-marchanka/terraform-talos-vsphere-vm.git?ref=a5e46241f5605d2e587b2026eb6e28378a6e7116"
   # version = "1.1.3"
 
   datacenter     = var.datacenter
@@ -70,7 +70,7 @@ module "control_plane_vm" {
 }
 
 module "worker_vm" {
-  source = "git@github.com:eugene-marchanka/terraform-talos-vsphere-vm.git?ref=470297810f343e132ef4e65813aa61a8c803cc8c"
+  source = "git@github.com:eugene-marchanka/terraform-talos-vsphere-vm.git?ref=a5e46241f5605d2e587b2026eb6e28378a6e7116"
   # source  = "ilpozzd/vsphere-vm/talos"
   # version = "1.1.3"
 
